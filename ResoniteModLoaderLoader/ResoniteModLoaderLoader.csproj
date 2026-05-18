@@ -1,0 +1,32 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net10.0-windows10.0.26100.0</TargetFramework>
+    <LangVersion>latest</LangVersion>
+    <EnableDefaultCompileItems>true</EnableDefaultCompileItems>
+    <CopyLocalLockFileAssemblies>false</CopyLocalLockFileAssemblies>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <Target Name="GenerateVersionInfo" BeforeTargets="CoreCompile">
+    <ReadLinesFromFile File="$(MSBuildThisFileDirectory)..\VERSION">
+      <Output TaskParameter="Lines" PropertyName="LoaderVersion" />
+    </ReadLinesFromFile>
+    <PropertyGroup>
+      <LoaderVersion Condition="'$(LoaderVersion)' == ''">0.0.0</LoaderVersion>
+      <VersionInfoContent>namespace ResoniteModLoaderLoader { internal static class VersionInfo { internal const string Version = "$(LoaderVersion)"%3B } }</VersionInfoContent>
+    </PropertyGroup>
+    <WriteLinesToFile File="$(IntermediateOutputPath)VersionInfo.g.cs" Overwrite="true" Lines="$(VersionInfoContent)" />
+    <ItemGroup>
+      <Compile Include="$(IntermediateOutputPath)VersionInfo.g.cs" />
+    </ItemGroup>
+  </Target>
+
+  <ItemGroup>
+    <PackageReference Include="BepInEx.NET.CoreCLR" Version="6.0.0-be.*" IncludeAssets="compile" />
+    <PackageReference Include="BepInEx.AutoPlugin" Version="2.1.0" PrivateAssets="all" />
+    <PackageReference Include="BepInEx.ResonitePluginInfoProps" Version="3.0.0" PrivateAssets="all" />
+    <PackageReference Include="ResoniteModding.BepisResoniteWrapper" Version="1.0.2" />
+  </ItemGroup>
+
+</Project>
