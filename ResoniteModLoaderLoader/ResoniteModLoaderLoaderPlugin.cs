@@ -21,7 +21,7 @@ public sealed class ResoniteModLoaderLoaderPlugin : BasePlugin
     private const string PluginVersion = VersionInfo.Version;
     private const string PluginUrl = "https://github.com/DevL0rd/ResoniteModLoaderLoader";
     private const string RmlAssemblyName = "ResoniteModLoader";
-    private const string RmlRelativePath = @"Libraries\ResoniteModLoader.dll";
+    private const string RmlRelativePath = "Libraries/ResoniteModLoader.dll";
 
     public override void Load()
     {
